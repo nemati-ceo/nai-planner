@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "nai-planner"
-version = "0.1.0"
+version = "0.1.1"
 description = "Reusable Django planner app — tasks, calendar events, reminders with GenericFK linking, Celery reminders, and optional FCM push."
 readme = "README.md"
 license = {text = "MIT"}
