@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__github__list_issues",
+      "Bash(gh issue *)",
+      "Bash(gh pr *)",
+      "Bash(pip show *)",
+      "Bash(python -c *)",
+      "Bash(python -m django makemigrations nai_planner --settings=tests.settings)",
+      "Bash(source .env*)",
+      "Bash(conda activate:*)",
+      "Bash(pip install:*)"
+    ]
+  }
+}

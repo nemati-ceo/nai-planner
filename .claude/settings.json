@@ -1,0 +1,64 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git stash *)",
+      "Bash(pytest *)",
+      "Bash(python -m pytest*)",
+      "Bash(ruff *)",
+      "Bash(mypy *)",
+      "Bash(python -m build*)",
+      "Bash(find *)",
+      "Bash(grep *)",
+      "Bash(cat *)",
+      "Bash(ls *)",
+      "Bash(wc *)",
+      "Bash(head *)",
+      "Bash(tail *)",
+      "Bash(curl *)",
+      "Edit(/.claude/skills/**)",
+      "Edit(/.claude/rules/**)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(*prod*)",
+      "Bash(*production*)"
+    ]
+  },
+  "model": "claude-opus-4-6",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo $CLAUDE_TOOL_INPUT | grep -qiE 'prod|production|deploy.*prod' && echo 'BLOCKED: Production command requires human approval' && exit 1 || exit 0"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'File modified — review before commit'"
+          }
+        ]
+      }
+    ]
+  },
+  "effortLevel": "high",
+  "plansDirectory": "./docs/plans",
+  "autoCompact": true
+}

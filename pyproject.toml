@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nai-planner"
+version = "0.1.0"
+description = "Reusable Django planner app — tasks, calendar events, reminders with GenericFK linking, Celery reminders, and optional FCM push."
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.10"
+authors = [
+    {name = "Ali Nemati", email = "nemati@nemati.ai"},
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "Django>=4.2",
+]
+
+[project.optional-dependencies]
+drf = ["djangorestframework>=3.14", "django-filter>=23.0"]
+ninja = ["django-ninja>=1.0"]
+fcm = ["firebase-admin>=6.0"]
+celery = ["celery>=5.3", "django-celery-beat>=2.5"]
+all = ["nai-planner[drf,ninja,fcm,celery]"]
+dev = [
+    "nai-planner[all]",
+    "pytest",
+    "pytest-django",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+]
+
+[project.urls]
+Homepage = "https://github.com/NEMATI-AI/nai-planner"
+Repository = "https://github.com/NEMATI-AI/nai-planner"
+
+[tool.setuptools.packages.find]
+include = ["nai_planner*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py310"
+exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+pythonpath = ["."]
+python_files = ["tests.py", "test_*.py"]
